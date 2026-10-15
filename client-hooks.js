@@ -9,8 +9,13 @@
   var ending = false;                   // the run has ended; scoring is locked
   var target = 0;                       // Score Challenge target (early finish), 0 = none
 
+  // The client's own shared scoring (their game/scoring.js, TileScoring.calculate, through their scoreDetails()):
+  // the board shows its breakdown and GameBull receives its `score` (already floored at 0 by the client).
   function facts(reason) {
-    return { reason: reason, tiles: removedTiles, cleared: cleared, lives: lives, lost: 3 - lives, total: totalScore() };
+    var s = scoreDetails();
+    return { reason: reason, tiles: removedTiles, cleared: cleared, lives: lives, lost: 3 - lives,
+      tilePoints: s.tilePoints, clearPoints: s.clearPoints, lifePenalty: s.lifePenalty, rawScore: s.rawScore,
+      total: s.score, scoringVersion: s.scoringVersion };
   }
 
   // The client's result screen is replaced by the GameBull board. Their overlay() still runs (it fills their
@@ -22,7 +27,7 @@
     if (ended) return;
     var f = facts(game.state);
     ending = true; ended = true;
-    console.log("[TM-GB] Client run end '" + f.reason + "': tiles " + f.tiles + ", stages " + f.cleared + ", lives lost " + f.lost + ", client total " + f.total + ".");
+    console.log("[TM-GB] Client run end '" + f.reason + "': tiles " + f.tiles + ", stages " + f.cleared + ", lives lost " + f.lost + ", client score " + f.total + " (raw " + f.rawScore + ", scoring " + f.scoringVersion + ").");
     if (hooks.onEnd) hooks.onEnd(f, function () { clientOverlay(title, text, label, fn); });
     else clientOverlay(title, text, label, fn);
   };
