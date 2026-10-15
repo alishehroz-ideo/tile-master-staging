@@ -1,0 +1,10 @@
+(function(root){
+function mix(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+class TileGame{
+ constructor(level){this.tiles=[];this.tray=[];this.score=0;this.state='playing';let id=0;level.layerData.forEach((s,z)=>s.split(',').map(Number).forEach((type,i)=>{if(type!==-1)this.tiles.push({id:id++,type:type>0?type-1:null,x:i%level.width+(z%2?0.5:0),y:Math.floor(i/level.width)+(z%2?0.5:0),z})}));let types=[...new Set(this.tiles.filter(t=>t.type!==null).map(t=>t.type))];for(let i=0;types.length<level.numberOfType;i++)if(!types.includes(i))types.push(i);let n=Number(level.types?.[0]?.amount||0),pool=[],k=1;for(let i=0;i<this.tiles.filter(t=>t.type===null).length;i+=3){let type=n>0?-2:types[k++%types.length];pool.push(type,type,type);n-=3}mix(pool);this.tiles.filter(t=>t.type===null).forEach(t=>t.type=pool.pop());this.total=this.tiles.length;}
+ available(t){return this.tiles.includes(t)&&!this.tiles.some(u=>u.z>t.z&&Math.abs(u.x-t.x)<.99&&Math.abs(u.y-t.y)<.99)}
+ pick(id){if(this.state!=='playing')return false;const t=this.tiles.find(t=>t.id===id);if(!t||!this.available(t))return false;this.tiles=this.tiles.filter(u=>u!==t);this.tray.push(t);this.tray.sort((a,b)=>a.type-b.type);let matched=false;for(const type of [...new Set(this.tray.map(t=>t.type))])if(this.tray.filter(t=>t.type===type).length>=3){this.tray=this.tray.filter(t=>t.type!==type);this.score+=3;matched=true;if(type===-2)this.magnet();}if(!this.tiles.length&&!this.tray.length)this.state='won';else if(this.tray.length>=7)this.state='lost';return {matched,state:this.state}}
+ magnet(){const type=this.tray.length?this.tray[0].type:this.tiles.at(-1)?.type;if(type===undefined||type===-2)return;const need=3-this.tray.filter(t=>t.type===type).length,candidates=this.tiles.filter(t=>t.type===type).slice(0,need);if(candidates.length===need){this.tiles=this.tiles.filter(t=>!candidates.includes(t));this.tray=this.tray.filter(t=>t.type!==type);this.score+=3}}
+
+}root.TileGame=TileGame;if(typeof module!=='undefined')module.exports={TileGame};
+})(typeof window!=='undefined'?window:globalThis);

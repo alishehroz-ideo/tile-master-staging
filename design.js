@@ -1,0 +1,3 @@
+const home=$('homeScreen');let modalWasPaused=false;
+function closeModals(){for(const id of ['settingsPanel','helpPanel']){const el=$(id);if(el)el.hidden=true}paused=roundActive?modalWasPaused:true;checkTime();render()}
+$('playButton').onclick=()=>{home.hidden=true;start()};if($('tutorialButton'))$('tutorialButton').onclick=()=>{modalWasPaused=paused;paused=true;$('helpPanel').hidden=false};if($('settingsButton'))$('settingsButton').onclick=()=>{modalWasPaused=paused;paused=true;$('settingsPanel').hidden=false};for(const b of document.querySelectorAll('.close'))b.onclick=closeModals;paused=true;render();

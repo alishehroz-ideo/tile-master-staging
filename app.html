@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- The game itself: the client's own page (game/index.html: their markup, stylesheets and scripts, copied in at
+     build time by vite.gamebull.config.ts, unchanged), then client-hooks.js, then the GameBull shell.
+     Loaded by index.html inside the 540x960 frame, the same 9:16 shape their page is designed for. -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Tile Master | スコアチャレンジ</title>
+<meta name="theme-color" content="#13a9c5"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="ocean.css"><link rel="stylesheet" href="title.css"><link rel="stylesheet" href="scoreboard.css"><link rel="stylesheet" href="exact-score.css"><link rel="stylesheet" href="hud.css">
+  <script type="module" crossorigin src="./gb/app-CQPUrY4X.js"></script>
+  <link rel="modulepreload" crossorigin href="./gb/nozoom-ChP_lOau.js">
+  <link rel="stylesheet" crossorigin href="./gb/app-CmrXWPEC.css">
+</head>
+<body>
+<main class="screen"><div id="oceanEffects" class="oceanEffects" aria-hidden="true"></div><section class="game" aria-label="Tile Master"><div class="gameTop"><div id="lives" class="lives" role="status" aria-label="残りライフ 3 / 3">♥ ♥ ♥</div><div class="scoreTitle"><span>スコア</span><b id="score">0</b></div><div class="timeTitle"><span class="timeLabel">◷ 残り時間</span><span id="time">03:00</span></div></div><div class="progress"><div id="progress"></div></div><div class="boardWrap"><div id="board"></div></div><div id="tray" aria-label="手持ちタイル"></div></section><button id="muteButton" class="muteButton" aria-label="音をONにする" aria-pressed="true">🔇</button><section id="homeScreen" class="homeScreen"><img class="logo" src="assets/original/logo.png" alt="Tile Master"><button id="playButton" class="imageButton" aria-label="PLAY"><img src="assets/original/play-text.png" alt=""></button><p class="stageTotal">3分間スコアチャレンジ · ステージ30から開始</p></section><section id="overlay" class="overlay resultScreen" role="dialog" aria-label="スコア結果" aria-modal="true" hidden><span id="badge" hidden></span><h2 id="overlayTitle"></h2><p id="overlayText" class="srOnly"></p><strong id="resultScore" aria-label="合計スコア">0</strong><section class="scoreBreakdown" aria-label="スコア内容"><div><span id="tilesLabel">牌の消去（0枚）</span><span id="tilesQuantity" class="resultQuantity">0枚</span><strong id="tilePoints">+0</strong></div><div><span id="clearedLabel">クリア（0面）</span><span id="clearedQuantity" class="resultQuantity">0回</span><strong id="clearPoints">+0</strong></div><div><span id="lostLabel">ライフ消滅（0回）</span><span id="lostQuantity" class="resultQuantity">0回</span><strong id="lifePenalty">−0</strong></div></section><button id="primary" class="primary" aria-label="スコア登録">スコア登録</button><p id="registerStatus" role="status"></p></section></main><script src="data.js"></script><script src="engine.js"></script><script src="boards.js"></script><script src="board-picker.js"></script><script src="ocean-crops.js"></script><script src="app.js"></script><script src="design.js"></script><script src="effects.js"></script><script src="audio.js"></script>
+<script src="client-hooks.js"></script>
+<div id="gb-root"></div>
+</body>
+</html>
